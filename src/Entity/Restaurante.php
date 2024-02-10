@@ -42,11 +42,6 @@ class Restaurante
         $this->Pedidos = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getCodRes(): ?int
     {
         return $this->CodRes;
