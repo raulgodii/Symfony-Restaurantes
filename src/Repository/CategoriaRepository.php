@@ -21,6 +21,54 @@ class CategoriaRepository extends ServiceEntityRepository
         parent::__construct($registry, Categoria::class);
     }
 
+
+    public function getCategorias(): array
+    {
+        $categorias = $this->findAll();
+        $categoriasArray = [];
+        foreach ($categorias as $categoria) {
+            $categoriasArray[] = [
+                'id' => $categoria->getId(),
+                'nombre' => $categoria->getNombre(),
+                'descripcion' => $categoria->getDescripcion(),
+            ];
+        }
+        return $categoriasArray;
+    }
+
+    public function addCategoria($nombre, $descripcion): Categoria
+    {
+        $categoria = new Categoria();
+        $categoria->setNombre($nombre);
+        $categoria->setDescripcion($descripcion);
+
+        $this->getEntityManager()->persist($categoria);
+        $this->getEntityManager()->flush();
+
+        return $categoria;
+    }
+
+    public function updateCategoria($id, $nombre, $descripcion): Categoria
+    {
+        $categoria = $this->find($id);
+        $categoria->setNombre($nombre);
+        $categoria->setDescripcion($descripcion);
+
+        $this->getEntityManager()->flush();
+
+        return $categoria;
+    }
+
+    public function deleteCategoria(int $id): void
+    {
+        $categoria = $this->find($id);
+
+        $this->getEntityManager()->remove($categoria);
+        $this->getEntityManager()->flush();
+    }
+
+
+
 //    /**
 //     * @return Categoria[] Returns an array of Categoria objects
 //     */
