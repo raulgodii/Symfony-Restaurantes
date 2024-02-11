@@ -15,7 +15,7 @@ class PedidoRestaurante
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $CodPed = null;
+    private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $Fecha = null;
@@ -35,16 +35,9 @@ class PedidoRestaurante
         $this->Pedido = new ArrayCollection();
     }
 
-    public function getCodPed(): ?int
+    public function getId(): ?int
     {
-        return $this->CodPed;
-    }
-
-    public function setCodPed(int $CodPed): static
-    {
-        $this->CodPed = $CodPed;
-
-        return $this;
+        return $this->id;
     }
 
     public function getFecha(): ?\DateTimeInterface

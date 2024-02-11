@@ -13,7 +13,7 @@ class Producto
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $CodProd = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 45)]
     private ?string $Nombre = null;
@@ -39,16 +39,9 @@ class Producto
         $this->pedidoProductos = new ArrayCollection();
     }
 
-    public function getCodProd(): ?int
+    public function getId(): ?int
     {
-        return $this->CodProd;
-    }
-
-    public function setCodProd(int $CodProd): static
-    {
-        $this->CodProd = $CodProd;
-
-        return $this;
+        return $this->id;
     }
 
     public function getNombre(): ?string

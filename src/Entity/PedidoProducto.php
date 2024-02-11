@@ -12,8 +12,7 @@ class PedidoProducto
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-
-    private ?int $CodPedProd = null;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'Pedido')]
     #[ORM\JoinColumn(nullable: false)]
@@ -26,16 +25,9 @@ class PedidoProducto
     #[ORM\Column]
     private ?int $Unidades = null;
 
-    public function getCodPedProd(): ?int
+    public function getId(): ?int
     {
-        return $this->CodPedProd;
-    }
-
-    public function setCodPedProd(int $CodPedProd): static
-    {
-        $this->CodPedProd = $CodPedProd;
-
-        return $this;
+        return $this->id;
     }
 
     public function getPedido(): ?PedidoRestaurante

@@ -14,7 +14,7 @@ class Categoria
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $CodCat = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 45)]
     private ?string $Nombre = null;
@@ -25,21 +25,14 @@ class Categoria
     #[ORM\OneToMany(targetEntity: Producto::class, mappedBy: 'Categoria', orphanRemoval: true)]
     private Collection $productos;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function __construct()
     {
         $this->productos = new ArrayCollection();
-    }
-
-    public function getCodCat(): ?int
-    {
-        return $this->CodCat;
-    }
-
-    public function setCodCat(int $CodCat): static
-    {
-        $this->CodCat = $CodCat;
-
-        return $this;
     }
 
     public function getNombre(): ?string

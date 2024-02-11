@@ -14,7 +14,7 @@ class Restaurante
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $CodRes = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 90)]
     private ?string $Correo = null;
@@ -42,16 +42,9 @@ class Restaurante
         $this->Pedidos = new ArrayCollection();
     }
 
-    public function getCodRes(): ?int
+    public function getId(): ?int
     {
-        return $this->CodRes;
-    }
-
-    public function setCodRes(int $CodRes): static
-    {
-        $this->CodRes = $CodRes;
-
-        return $this;
+        return $this->id;
     }
 
     public function getCorreo(): ?string
