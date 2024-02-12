@@ -1,37 +1,20 @@
 <?php
 
 namespace App\Form;
-use App\Entity\Restaurante;
-use App\Form\RegistrationType;
+
 use Symfony\Component\Form\AbstractType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class LoginType extends AbstractType
 {
-/**
-     * @Route("/register", name="user_register")
-     */
-    public function register(Request $request): Response
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $restaurante = new Restaurante();
-        $form = $this->createForm(RegistrationType::class, $restaurante);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Manejar la lógica de registro aquí, por ejemplo, guardar el usuario en la base de datos
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($restaurante);
-            $entityManager->flush();
-
-            // Redirigir a alguna página después de que el usuario se haya registrado exitosamente
-            return $this->redirectToRoute('registration_success');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        $builder
+            ->add('correo', TextType::class)
+            ->add('clave', PasswordType::class)
+            ->add('login', SubmitType::class, ['label' => 'Iniciar sesión']);
     }
 }

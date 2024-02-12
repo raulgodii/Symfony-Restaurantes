@@ -15,7 +15,9 @@
     </div>
 
     <div class="buttons">
-        <a href="{{ path('app_restaurante', {'login': 'login'}) }}" class="btn btn-login">Login</a>
-        <a href="{{ path('app_restaurante', {'login': 'registro'}) }}" class="btn btn-register">Registro</a>
+        <a href="{{ path('app_login', {'login': 'login'}) }}" class="btn btn-login">Login</a>
+        <a href="{{ path('app_registro', {'login': 'registro'}) }}" class="btn btn-register">Registro</a>
+        <a href="{{ path('app_logout', {'logout': 'logout'}) }}" class="btn btn-register">Cerrar Sesion</a>
+
     </div>
 {% endblock %}

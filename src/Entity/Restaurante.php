@@ -129,7 +129,7 @@ class Restaurante
 
     public function setRol(string $Rol): static
     {
-        $this->Direccion = $Rol;
+        $this->Rol = $Rol;
 
         return $this;
     }

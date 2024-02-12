@@ -7,7 +7,10 @@
 </head>
 <body>
     <header>
-        <h1>{% block header %}Bienvenido a Symfony{% endblock %}</h1>
+        {% if app.session.get('login') %}
+            <p>Correo: {{ app.session.get('login').correo }}</p>
+        {% endif %}
+        <h1>{% block header %}Bienvenido a Symfony {% endblock %}</h1>
     </header>
 
     <section>
