@@ -25,6 +25,9 @@ class Producto
     private ?float $Peso = null;
 
     #[ORM\Column]
+    private ?float $Precio = null;
+
+    #[ORM\Column]
     private ?int $Stock = null;
 
     #[ORM\Column]
@@ -79,6 +82,18 @@ class Producto
     public function setPeso(float $Peso): static
     {
         $this->Peso = $Peso;
+
+        return $this;
+    }
+
+    public function getPrecio(): ?float
+    {
+        return $this->Precio;
+    }
+
+    public function setPrecio(float $Precio): static
+    {
+        $this->Precio = $Precio;
 
         return $this;
     }
