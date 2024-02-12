@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+landing_page:
+    path: '/'
+    controller: App\Controller\LandingPageController::index
+
+
+handle_contact_form:
+    path: /contact
+    controller: App\Controller\ContactController::handleContactForm

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        
-        {% block stylesheets %}
-        {% endblock %}
-    
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Symfony Landing Page{% endblock %}</title>
+    {# Agrega tus estilos CSS aquí si es necesario #}
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Bienvenido a Symfony{% endblock %}</h1>
+    </header>
+
+    <section>
+        {% block content %}{% endblock %}
+    </section>
+
+    {# Agrega tus scripts JS aquí si es necesario #}
+</body>
 </html>
