@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th>Imagen</th>
-                <td>{{ producto.Imagen }}</td>
+                <td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
             </tr>
         </tbody>
     </table>

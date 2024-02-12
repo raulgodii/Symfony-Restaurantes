@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[Route('/producto')]
 class ProductoController extends AbstractController
@@ -30,6 +32,25 @@ class ProductoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Subir archivo de imagen
+            $imagenArchivo = $form->get('Imagen')->getData();
+
+            if ($imagenArchivo) {
+                $nombreArchivo = uniqid() . '.' . $imagenArchivo->guessExtension();
+
+                try {
+                    $imagenArchivo->move(
+                        $this->getParameter('kernel.project_dir') . '/public/images',
+                        $nombreArchivo
+                    );
+                } catch (FileException $e) {
+                    // Manejar la excepción si hay un problema al mover el archivo
+                }
+
+                // Actualizar el nombre de la imagen en el producto
+                $producto->setImagen($nombreArchivo);
+            }
+
             $entityManager->persist($producto);
             $entityManager->flush();
 
@@ -57,6 +78,26 @@ class ProductoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Subir archivo de imagen
+            $imagenArchivo = $form->get('Imagen')->getData();
+
+            if ($imagenArchivo) {
+                $nombreArchivo = uniqid() . '.' . $imagenArchivo->guessExtension();
+
+                try {
+                    $imagenArchivo->move(
+                        $this->getParameter('kernel.project_dir') . '/public/images',
+                        $nombreArchivo
+                    );
+                } catch (FileException $e) {
+                    // Manejar la excepción si hay un problema al mover el archivo
+                }
+
+                // Actualizar el nombre de la imagen en el producto
+                $producto->setImagen($nombreArchivo);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_producto_index', [], Response::HTTP_SEE_OTHER);
@@ -69,9 +110,21 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_producto_delete', methods: ['POST'])]
-    public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager, Filesystem $filesystem): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$producto->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
+
+            // Obtener el nombre del archivo de imagen asociado al producto
+            $imagenProducto = $producto->getImagen();
+
+            // Eliminar el archivo de imagen si existe
+            if ($imagenProducto) {
+                $rutaImagen = $this->getParameter('kernel.project_dir') . '/public/images/' . $imagenProducto;
+                if ($filesystem->exists($rutaImagen)) {
+                    $filesystem->remove($rutaImagen);
+                }
+            }
+
             $entityManager->remove($producto);
             $entityManager->flush();
         }
