@@ -34,6 +34,9 @@ class Restaurante
     #[ORM\Column(length: 255)]
     private ?string $Direccion = null;
 
+    #[ORM\Column(length: 45)]
+    private ?string $Rol = null;
+
     #[ORM\OneToMany(targetEntity: PedidoRestaurante::class, mappedBy: 'Restaurante', orphanRemoval: true)]
     private Collection $Pedidos;
 
@@ -115,6 +118,18 @@ class Restaurante
     public function setDireccion(string $Direccion): static
     {
         $this->Direccion = $Direccion;
+
+        return $this;
+    }
+
+    public function getRol(): ?string
+    {
+        return $this->Rol;
+    }
+
+    public function setRol(string $Rol): static
+    {
+        $this->Direccion = $Rol;
 
         return $this;
     }

@@ -27,6 +27,9 @@ class Producto
     #[ORM\Column]
     private ?int $Stock = null;
 
+    #[ORM\Column]
+    private ?string $Imagen = null;
+
     #[ORM\ManyToOne(inversedBy: 'productos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categoria $Categoria = null;
@@ -88,6 +91,18 @@ class Producto
     public function setStock(int $Stock): static
     {
         $this->Stock = $Stock;
+
+        return $this;
+    }
+
+    public function getImagen(): ?string
+    {
+        return $this->Imagen;
+    }
+
+    public function setImagen(string $Imagen): static
+    {
+        $this->Imagen = $Imagen;
 
         return $this;
     }
