@@ -13,3 +13,17 @@ landing_page:
 handle_contact_form:
     path: /contact
     controller: App\Controller\ContactController::handleContactForm
+
+
+app_restaurante:
+    path: /restaurantes/{login}
+    controller: App\Controller\RestauranteController::index
+
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_registro:
+    path: /registro
+    controller: App\Controller\SecurityController::registro
