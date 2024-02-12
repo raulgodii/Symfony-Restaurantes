@@ -4,18 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class RestauranteController extends AbstractController
 {
-    #[Route('/restaurantes/{login}', name: 'app_restaurante', methods: ['GET'])]
-    public function index($login): Response
+    #[Route('/restaurante', name: 'app_restaurante')]
+    public function index(): Response
     {
-        // Lógica específica de la página del restaurante
-        // Puedes agregar lógica para distinguir entre casos de login y registro
-
         return $this->render('restaurante/index.html.twig', [
-            'login' => $login,
+            'controller_name' => 'RestauranteController',
         ]);
     }
 }

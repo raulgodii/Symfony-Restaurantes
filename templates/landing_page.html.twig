@@ -2,11 +2,20 @@
 
 {% block title %}Mi Landing Page Symfony{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('../public/css/landing_page.css') }}">
+{% endblock %}
+
 {% block header %}¡Descubre nuestro increíble servicio!{% endblock %}
 
 {% block content %}
-    <p>Bienvenido a nuestra landing page en Symfony. Descubre lo que tenemos para ofrecer.</p>
+    <div class="welcome-text">
+        <p>Bienvenido a nuestra landing page en Symfony. Descubre lo que tenemos para ofrecer.</p>
+    </div>
 
-    <a href="{{ path('app_restaurante', {'login': 'login'}) }}"><button>Login</button></a>
-    <a href="{{ path('app_restaurante', {'login': 'registro'}) }}"><button>Registro</button></a>
+    <div class="buttons">
+        <a href="{{ path('app_restaurante', {'login': 'login'}) }}" class="btn btn-login">Login</a>
+        <a href="{{ path('app_restaurante', {'login': 'registro'}) }}" class="btn btn-register">Registro</a>
+    </div>
 {% endblock %}
