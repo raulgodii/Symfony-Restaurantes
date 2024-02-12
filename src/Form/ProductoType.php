@@ -17,6 +17,7 @@ class ProductoType extends AbstractType
             ->add('Nombre')
             ->add('Descripcion')
             ->add('Peso')
+            ->add('Precio')
             ->add('Stock')
             ->add('Imagen')
             ->add('Categoria', EntityType::class, [

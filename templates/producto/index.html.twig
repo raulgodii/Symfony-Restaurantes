@@ -12,6 +12,7 @@
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Peso</th>
+                <th>Precio</th>
                 <th>Stock</th>
                 <th>Imagen</th>
                 <th>actions</th>
@@ -24,8 +25,9 @@
                 <td>{{ producto.Nombre }}</td>
                 <td>{{ producto.Descripcion }}</td>
                 <td>{{ producto.Peso }}</td>
+                <td>{{ producto.Precio }}</td>
                 <td>{{ producto.Stock }}</td>
-                <td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
+                <td>{{ producto.Imagen }}</td>
                 <td>
                     <a href="{{ path('app_producto_show', {'id': producto.id}) }}">show</a>
                     <a href="{{ path('app_producto_edit', {'id': producto.id}) }}">edit</a>
@@ -33,7 +35,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
