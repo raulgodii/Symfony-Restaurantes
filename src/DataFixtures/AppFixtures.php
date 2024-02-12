@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Pechuga de pollo deshuesada',
                 'peso' => 150,
                 'stock' => 80,
-                'imagen' => 'pollo.jpg',
+                'imagen' => 'pechuga.jpg',
                 'categoria' => 'Alimentos frescos',
             ],
             [
@@ -73,7 +73,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Zanahorias orgánicas recién recolectadas',
                 'peso' => 600,
                 'stock' => 80,
-                'imagen' => 'zanahorias.jpg',
+                'imagen' => 'zanahorias.webp',
                 'categoria' => 'Alimentos frescos',
             ],
             [
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Yogur natural sin azúcar añadido',
                 'peso' => 150,
                 'stock' => 40,
-                'imagen' => 'yogur.jpg',
+                'imagen' => 'yogur.webp',
                 'categoria' => 'Alimentos frescos',
             ],
             [
@@ -97,7 +97,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Filete fresco de trucha',
                 'peso' => 180,
                 'stock' => 45,
-                'imagen' => 'trucha.jpg',
+                'imagen' => 'trucha.png',
                 'categoria' => 'Alimentos frescos',
             ],
             [
@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Quinoa orgánica de alta calidad',
                 'peso' => 950,
                 'stock' => 100,
-                'imagen' => 'quinoa.jpg',
+                'imagen' => 'quinoa.png',
                 'categoria' => 'Alimentos frescos',
             ],
             [
@@ -149,19 +149,11 @@ class AppFixtures extends Fixture
                 'categoria' => 'Alimentos frescos',
             ],
             [
-                'nombre' => 'Avena en hojuelas',
-                'descripcion' => 'Avena en hojuelas de grano entero',
-                'peso' => 900,
-                'stock' => 110,
-                'imagen' => 'avena.jpg',
-                'categoria' => 'Alimentos frescos',
-            ],
-            [
                 'nombre' => 'Espinacas frescas',
                 'descripcion' => 'Espinacas frescas y crujientes',
                 'peso' => 400,
                 'stock' => 85,
-                'imagen' => 'espinacas.jpg',
+                'imagen' => 'espinacas.webp',
                 'categoria' => 'Alimentos frescos',
             ],
 
@@ -203,7 +195,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Botella de jugo de naranja recién exprimido',
                 'peso' => 1000,
                 'stock' => 80,
-                'imagen' => 'jugo_naranja.jpg',
+                'imagen' => 'jugo_naranja.webp',
                 'categoria' => 'Bebidas',
             ],
             [
@@ -301,7 +293,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Tabla de cortar de bambú ecológica y resistente',
                 'peso' => 1200,
                 'stock' => 30,
-                'imagen' => 'tabla_cortar.jpg',
+                'imagen' => 'tabla_cortar.webp',
                 'categoria' => 'Equipamiento de cocina',
             ],
             [
@@ -317,7 +309,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Termómetro digital de cocina para medir la temperatura de los alimentos',
                 'peso' => 50,
                 'stock' => 40,
-                'imagen' => 'termometro_cocina.jpg',
+                'imagen' => 'termometro.jpg',
                 'categoria' => 'Equipamiento de cocina',
             ],
             [
@@ -325,7 +317,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Set de espátulas de cocina de silicona resistentes al calor',
                 'peso' => 200,
                 'stock' => 60,
-                'imagen' => 'espatulas_silicona.jpg',
+                'imagen' => 'espatulas.webp',
                 'categoria' => 'Equipamiento de cocina',
             ],
 
@@ -335,7 +327,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Juego de platos de porcelana blanca para 6 personas',
                 'peso' => 3000,
                 'stock' => 20,
-                'imagen' => 'platos_porcelana.jpg',
+                'imagen' => 'platos_porcelana.webp',
                 'categoria' => 'Vajilla y cubiertos',
             ],
             [
@@ -343,7 +335,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Juego completo de cubiertos de acero inoxidable para 12 personas',
                 'peso' => 2000,
                 'stock' => 30,
-                'imagen' => 'cubiertos_acero.jpg',
+                'imagen' => 'cubiertos_acero.webp',
                 'categoria' => 'Vajilla y cubiertos',
             ],
             [
@@ -399,7 +391,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Jarra de agua de vidrio con tapa y asa',
                 'peso' => 800,
                 'stock' => 35,
-                'imagen' => 'jarra_agua.jpg',
+                'imagen' => 'jarra_agua.webp',
                 'categoria' => 'Vajilla y cubiertos',
             ],
             [
@@ -407,7 +399,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Juego de platos de postre de porcelana para 6 personas',
                 'peso' => 2000,
                 'stock' => 20,
-                'imagen' => 'platos_postre.jpg',
+                'imagen' => 'platos_postre.webp',
                 'categoria' => 'Vajilla y cubiertos',
             ],
 
@@ -441,7 +433,7 @@ class AppFixtures extends Fixture
                 'descripcion' => 'Gel desinfectante para manos y superficies',
                 'peso' => 500,
                 'stock' => 70,
-                'imagen' => 'desinfectante_gel.jpg',
+                'imagen' => 'desinfectante.jpg',
                 'categoria' => 'Productos de limpieza',
             ],
             [
