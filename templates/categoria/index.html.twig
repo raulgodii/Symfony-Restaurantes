@@ -1,37 +1,38 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Categoria index{% endblock %}
-
 {% block body %}
-    <h1>Categorias</h1>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1 style="color: #333;">Categorias</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorium in categorias %}
-            <tr>
-                <td>{{ categorium.id }}</td>
-                <td>{{ categorium.Nombre }}</td>
-                <td>{{ categorium.Descripcion }}</td>
-                <td>
-                    <a href="{{ path('app_categoria_show', {'id': categorium.id}) }}">Ver</a>
-                    <a href="{{ path('app_categoria_edit', {'id': categorium.id}) }}">Editar</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Id</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Nombre</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Descripcion</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorium in categorias %}
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ categorium.id }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ categorium.Nombre }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ categorium.Descripcion }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                            <a href="{{ path('app_categoria_show', {'id': categorium.id}) }}" style="text-decoration: none; color: #fff; background-color: #5bc0de; padding: 5px 10px; border-radius: 3px;">Ver</a>
+                            <a href="{{ path('app_categoria_edit', {'id': categorium.id}) }}" style="text-decoration: none; color: #fff; background-color: #f0ad4e; padding: 5px 10px; border-radius: 3px;">Editar</a>
+                            <a href="{{ path('app_categoria_delete', {'id': categorium.id}) }}" style="text-decoration: none; color: #fff; background-color: #FF0000; padding: 5px 10px; border-radius: 3px;">Eliminar</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" style="border: 1px solid #ddd; padding: 8px;">No se encontraron registros</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_categoria_new') }}">Create new</a>
+        <div style="margin-top: 20px;">
+            <a href="{{ path('app_categoria_new') }}" style="text-decoration: none; color: #fff; background-color: #5cb85c; padding: 8px 15px; border-radius: 3px;">Crear nueva categoría</a>
+        </div>
+    </div>
 {% endblock %}
