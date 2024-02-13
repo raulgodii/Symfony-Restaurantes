@@ -10,6 +10,7 @@
         {% if app.user %}
             <div class="mb-3">
                 You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                <a href="{{ path('app_carrito') }}">Ver carrito</a>
             </div>
         {% endif %}
         <h1>{% block header %}Bienvenido a Symfony {% endblock %}</h1>
