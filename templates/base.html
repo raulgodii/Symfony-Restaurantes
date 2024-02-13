@@ -2,7 +2,10 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Restaurantes SHOP</title>
+		<title>
+			{% block title %}SuperMart - Home
+			{% endblock %}
+		</title>
 
 		<!-- Google Font -->
 		<link
@@ -31,24 +34,24 @@
 									<ul>
 										<li>
 											<i class="fa fa-envelope"></i>
-											restauranteSHOP@info.com</li>
-										<li>Free Shipping for all Order of $99</li>
+											supermart@info.com</li>
+										<li>Envío gratuito para todos los pedidos de 149€ o más</li>
 									</ul>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6">
 								<div class="header__top__right">
 									<div class="header__top__right__social">
-										<a href="#">
+										<a>
 											<i class="fa fa-facebook"></i>
 										</a>
-										<a href="#">
+										<a>
 											<i class="fa fa-twitter"></i>
 										</a>
-										<a href="#">
+										<a>
 											<i class="fa fa-linkedin"></i>
 										</a>
-										<a href="#">
+										<a>
 											<i class="fa fa-pinterest-p"></i>
 										</a>
 									</div>
@@ -57,14 +60,14 @@
 										<div>English</div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
-											<li><a href="#">Spanish</a></li>
-											<li><a href="#">English</a></li>
+											<li><a href="">Spanish</a></li>
+											<li><a href="">English</a></li>
 										</ul>
 									</div>
 									<div class="header__top__right__auth">
-										<a href="#">
+										<a href="{{ path('app_login') }}">
 											<i class="fa fa-user"></i>
-											Login</a>
+											Iniciar Sesión</a>
 									</div>
 								</div>
 							</div>
@@ -88,20 +91,13 @@
 										<a href="./shop-grid.html">Shop</a>
 									</li>
 									<li>
-										<a href="#">Pages</a>
+										<a href="#">Categorias</a>
 										<ul class="header__menu__dropdown">
-											<li>
-												<a href="./shop-details.html">Shop Details</a>
-											</li>
-											<li>
-												<a href="./shoping-cart.html">Shoping Cart</a>
-											</li>
-											<li>
-												<a href="./checkout.html">Check Out</a>
-											</li>
-											<li>
-												<a href="./blog-details.html">Blog Details</a>
-											</li>
+											{% for categoria in categorias %}
+												<li>
+													<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
+												</li>
+											{% endfor %}
 										</ul>
 									</li>
 									<li>
@@ -203,16 +199,16 @@
 								<button type="submit" class="site-btn">Subscribe</button>
 							</form>
 							<div class="footer__widget__social">
-								<a href="#">
+								<a>
 									<i class="fa fa-facebook"></i>
 								</a>
-								<a href="#">
+								<a>
 									<i class="fa fa-instagram"></i>
 								</a>
-								<a href="#">
+								<a>
 									<i class="fa fa-twitter"></i>
 								</a>
-								<a href="#">
+								<a>
 									<i class="fa fa-pinterest"></i>
 								</a>
 							</div>
