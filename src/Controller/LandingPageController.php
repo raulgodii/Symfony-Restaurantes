@@ -11,7 +11,7 @@ use App\Entity\Categoria;
 class LandingPageController extends AbstractController
 {
 
-    #[Route('/', name: 'landing_page')]
+    #[Route('/', name: 'home')]
     public function index(CategoriaRepository $categoriaRepository): Response
     {
         $categorias = $categoriaRepository->getCategorias();
