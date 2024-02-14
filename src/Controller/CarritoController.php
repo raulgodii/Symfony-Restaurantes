@@ -40,10 +40,10 @@ class CarritoController extends AbstractController
 
 
     #[Route('/carrito/agregar/{id}', name: 'app_carrito_agregar')]
-    public function agregar(int $id, Request $request): Response
+    public function agregar(int $id, Request $request, ProductoRepository $productoRepository): Response
     {
         $session = $request->getSession();
-
+    
         // Inicia la sesión si no está iniciada
         if (!$session->isStarted()) {
             $session->start();
@@ -51,16 +51,30 @@ class CarritoController extends AbstractController
         // Obtén el carrito de la sesión
         $carrito = $session->get('carrito', []);
     
-        // Si el producto ya está en el carrito, incrementa la cantidad
-        if (isset($carrito[$id])) {
-            $carrito[$id]++;
-        } else {
-            // Si el producto no está en el carrito, añádelo
-            $carrito[$id] = 1;
+        $producto = $productoRepository->find($id);
+    
+        if (!$producto) {
+            throw $this->createNotFoundException('El producto no existe');
         }
     
-        // Guarda el carrito en la sesión
-        $request->getSession()->set('carrito', $carrito);
+        // Check if there is enough stock
+        if ($producto->getStock() <= (isset($carrito[$id]) ? $carrito[$id] : 0)) {
+            return $this->render('carrito/index.html.twig', [
+                'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
+                'productos' => [],
+                'total' => 0,
+            ]);        } else {
+            // Si el producto ya está en el carrito, incrementa la cantidad
+            if (isset($carrito[$id])) {
+                $carrito[$id]++;
+            } else {
+                // Si el producto no está en el carrito, añádelo
+                $carrito[$id] = 1;
+            }
+    
+            // Guarda el carrito en la sesión
+            $request->getSession()->set('carrito', $carrito);
+        }
     
         return $this->redirectToRoute('app_carrito');
     }
@@ -113,7 +127,11 @@ class CarritoController extends AbstractController
     
             // Revisa si hay stock suficiente
             if ($producto->getStock() <= $carrito[$id]) {
-                $this->addFlash('error', 'No hay suficiente stock para el producto: ' . $producto->getNombre());
+                return $this->render('carrito/index.html.twig', [
+                    'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
+                    'productos' => [],
+                    'total' => 0,
+                ]);
             } else {
                 $carrito[$id]++;
     
