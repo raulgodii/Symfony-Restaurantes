@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PedidoController!{% endblock %}
+{% block title %}Mis Pedidos{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>Mis Pedidos</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% for pedido in pedidosConProductos %}
+    <h2>Detalles del Pedido</h2>
+    <p>ID del Pedido: {{ pedido.pedido.getId() }}</p>
+    <!-- Aquí puedes mostrar más detalles del pedido según sea necesario -->
 
-    This friendly message is coming from:
+    <h3>Productos en el Pedido</h3>
     <ul>
-        <li>Your controller at <code>C:/Users/Usuario/Desktop/GITHUB/Symfony-Restaurantes/src/Controller/PedidoController.php</code></li>
-        <li>Your template at <code>C:/Users/Usuario/Desktop/GITHUB/Symfony-Restaurantes/templates/pedido/index.html.twig</code></li>
+        {% for producto in pedido.productos %}
+            <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
+            <!-- Aquí puedes mostrar más detalles del producto según sea necesario -->
+        {% endfor %}
     </ul>
-</div>
+{% endfor %}
 {% endblock %}

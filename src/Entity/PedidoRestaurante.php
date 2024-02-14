@@ -24,7 +24,7 @@ class PedidoRestaurante
     private ?bool $Enviado = null;
 
     #[ORM\ManyToOne(inversedBy: 'Pedidos')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name:"restaurante_id",nullable: false)]
     private ?Restaurante $Restaurante = null;
 
     #[ORM\OneToMany(targetEntity: PedidoProducto::class, mappedBy: 'Pedido', orphanRemoval: true)]
