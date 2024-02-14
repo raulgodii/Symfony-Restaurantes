@@ -59,7 +59,15 @@ class ProductoController extends AbstractController
 
         return $this->render('producto/new.html.twig', [
             'producto' => $producto,
-            'form' => $form,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/todos', name: 'app_producto_todos', methods: ['GET'])]
+    public function todos(ProductoRepository $productoRepository): Response
+    {
+        return $this->render('producto/todos.html.twig', [
+            'productos' => $productoRepository->findAll(),
         ]);
     }
 
@@ -78,7 +86,6 @@ class ProductoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // Subir archivo de imagen
             $imagenArchivo = $form->get('Imagen')->getData();
 
@@ -105,7 +112,7 @@ class ProductoController extends AbstractController
 
         return $this->render('producto/edit.html.twig', [
             'producto' => $producto,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -113,7 +120,6 @@ class ProductoController extends AbstractController
     public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager, Filesystem $filesystem): Response
     {
         if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
-
             // Obtener el nombre del archivo de imagen asociado al producto
             $imagenProducto = $producto->getImagen();
 
