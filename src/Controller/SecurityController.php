@@ -6,11 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Repository\CategoriaRepository;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, CategoriaRepository $categoriaRepository): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('landing_page');
@@ -21,7 +22,9 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $categorias = $categoriaRepository->getCategorias();
+
+        return $this->render('security/login.html', ['last_username' => $lastUsername, 'error' => $error, 'categorias' => $categorias]);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
