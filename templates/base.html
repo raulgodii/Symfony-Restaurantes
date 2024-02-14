@@ -124,7 +124,7 @@
 			<!-- Header Section End -->
 		</header>
 
-		{# {% block body %}{% endblock %} #}
+		 {% block body %}{% endblock %} 
 
 		
 		<section class="hero">
@@ -136,19 +136,13 @@
                             <i class="fa fa-bars"></i>
                             <span>All departments</span>
                         </div>
-                        <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
-                        </ul>
+                        <ul class="header__menu__dropdown">
+											{% for categoria in app.request.attributes.get('categorias') %}
+												<li>
+													<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
+												</li>
+											{% endfor %}
+										</ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -165,7 +159,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+34. 673 456 985</h5>
                                 <span>Disponibles 24H día</span>
                             </div>
                         </div>
@@ -173,9 +167,9 @@
                     <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
+                            <h2>Todo <br />Lo Necesario</h2>
+                            <p>Recogida y entrega gratuitas disponibles</p>
+                            <a href="#" class="primary-btn">COMPRA AHORA!</a>
                         </div>
                     </div>
                 </div>
