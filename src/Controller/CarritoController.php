@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Producto;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\ProductoRepository;
 
 
 class CarritoController extends AbstractController
@@ -16,11 +17,9 @@ class CarritoController extends AbstractController
     #[Route('/carrito', name: 'app_carrito')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Obtén el carrito de la sesión
         $carrito = $request->getSession()->get('carrito', []);
         $total = 0;
     
-        // Obtén los productos del carrito desde la base de datos
         $productos = [];
         if ($carrito) {
             $repository = $entityManager->getRepository(Producto::class);
@@ -99,16 +98,27 @@ class CarritoController extends AbstractController
     }
 
     #[Route('/carrito/aumentar/{id}', name: 'app_carrito_aumentar')]
-    public function aumentar(int $id, SessionInterface $session): Response
+    public function aumentar(int $id, SessionInterface $session, ProductoRepository $productoRepository): Response
     {
         $carrito = $session->get('carrito', []);
     
         if (!array_key_exists($id, $carrito)) {
             $this->addFlash('error', 'El producto no está en el carrito.');
         } else {
-            $carrito[$id]++;
+            $producto = $productoRepository->find($id);
     
-            $session->set('carrito', $carrito);
+            if (!$producto) {
+                throw $this->createNotFoundException('El producto no existe');
+            }
+    
+            // Revisa si hay stock suficiente
+            if ($producto->getStock() <= $carrito[$id]) {
+                $this->addFlash('error', 'No hay suficiente stock para el producto: ' . $producto->getNombre());
+            } else {
+                $carrito[$id]++;
+    
+                $session->set('carrito', $carrito);
+            }
         }
     
         return $this->redirectToRoute('app_carrito');
