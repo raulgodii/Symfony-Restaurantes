@@ -16,6 +16,7 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppAuthenticator
+            access_denied_handler: App\Security\AccessDeniedHandler
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -38,7 +39,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/producto/edit, roles: ROLE_ADMIN }
+        - { path: ^/producto/new, roles: ROLE_ADMIN }
+        - { path: ^/producto/delete, roles: ROLE_ADMIN }
+        
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
