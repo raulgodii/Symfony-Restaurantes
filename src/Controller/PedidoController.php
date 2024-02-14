@@ -30,6 +30,13 @@ class PedidoController extends AbstractController
     public function nuevo(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository): Response
     {
         $productosEnCarrito = $request->getSession()->get('carrito', []);
+
+        if (empty($productosEnCarrito)) {
+            return $this->render('carrito/index.html.twig', [
+                'error' => 'No puedes completar un pedido sin productos en el carrito.',
+                'productos' => []
+            ]);
+        }
     
         // Obtener o crear un PedidoRestaurante
         $restaurante = $restauranteRepository->findOneBy([]); // Esto es un ejemplo, debes obtener el restaurante adecuado según tu lógica de negocio
@@ -66,7 +73,7 @@ class PedidoController extends AbstractController
         // Limpia el carrito después de crear el pedido
         $request->getSession()->set('carrito', []);
     
-        return $this->redirectToRoute('app_pedido');
+        return $this->redirectToRoute('app_pedido_ver');
     }
 
 

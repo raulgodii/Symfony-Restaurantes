@@ -5,6 +5,14 @@
 {% block body %}
     <h1>Mi Carrito</h1>
     <a href="{{ path('app_carrito_vaciar') }}">Vaciar carrito</a>
+    <a href="{{ path('app_pedido_nuevo') }}">Crear Pedido</a>
+
+{% if error is defined %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+
     <table>
         <thead>
             <tr>
