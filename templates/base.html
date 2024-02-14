@@ -81,7 +81,7 @@
 									<li>
 										<a href="{{ path('home') }}">Categorias</a>
 										<ul class="header__menu__dropdown">
-											{% for categoria in categorias %}
+											{% for categoria in app.request.attributes.get('categorias') %}
 												<li>
 													<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
 												</li>
@@ -143,7 +143,7 @@
 						<div class="footer__widget">
 							<h6>Links de utilidad</h6>
 							<ul>
-								{% for categoria in categorias %}
+								{% for categoria in app.request.attributes.get('categorias') %}
 									<li>
 										<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
 									</li>
