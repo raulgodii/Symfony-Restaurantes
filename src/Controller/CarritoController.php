@@ -18,8 +18,8 @@ class CarritoController extends AbstractController
     {
         // Obtén el carrito de la sesión
         $carrito = $request->getSession()->get('carrito', []);
-        // var_dump($carrito);
-        // die ();
+        $total = 0;
+    
         // Obtén los productos del carrito desde la base de datos
         $productos = [];
         if ($carrito) {
@@ -28,14 +28,17 @@ class CarritoController extends AbstractController
                 $producto = $repository->find($id);
                 if ($producto) {
                     $productos[] = ['producto' => $producto, 'cantidad' => $cantidad];
+                    $total += $producto->getPrecio() * $cantidad; 
                 }
             }
         }
     
         return $this->render('carrito/index.html.twig', [
             'productos' => $productos,
+            'total' => $total,
         ]);
     }
+
 
     #[Route('/carrito/agregar/{id}', name: 'app_carrito_agregar')]
     public function agregar(int $id, Request $request): Response

@@ -12,10 +12,13 @@
 
     <h3>Productos en el Pedido</h3>
     <ul>
+        {% set total = 0 %}
         {% for producto in pedido.productos %}
-            <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
-            <!-- Aquí puedes mostrar más detalles del producto según sea necesario -->
+            <li>{{ producto.nombre }} - Precio: {{ producto.precio }} - Unidades:{{ producto.unidades }}</li>
+            {% set total = total + (producto.precio * producto.unidades) %}
         {% endfor %}
     </ul>
+    <p>Total del pedido: {{ total }}</p>
 {% endfor %}
+
 {% endblock %}
