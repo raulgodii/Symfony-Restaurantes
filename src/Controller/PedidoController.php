@@ -95,8 +95,8 @@ class PedidoController extends AbstractController
                 // Obtener detalles del producto
                 $productoArray = [
                     'nombre' => $producto->getNombre(),
-                    'precio' => $producto->getPrecio(), // Suponiendo que tengas un método getPrecio en tu entidad Producto
-                    // Puedes agregar más detalles aquí según sea necesario
+                    'precio' => $producto->getPrecio(),
+                    'unidades' => $pedidoProducto->getUnidades(),
                 ];
                 $productosEnPedido[] = $productoArray;
             }
@@ -109,4 +109,5 @@ class PedidoController extends AbstractController
             'pedidosConProductos' => $pedidosConProductos,
         ]);
     }
+
 }
