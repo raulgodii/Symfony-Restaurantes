@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Producto;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\ProductoRepository;
 
 
 class CarritoController extends AbstractController
@@ -16,11 +17,9 @@ class CarritoController extends AbstractController
     #[Route('/carrito', name: 'app_carrito')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Obtén el carrito de la sesión
         $carrito = $request->getSession()->get('carrito', []);
         $total = 0;
     
-        // Obtén los productos del carrito desde la base de datos
         $productos = [];
         if ($carrito) {
             $repository = $entityManager->getRepository(Producto::class);
@@ -41,10 +40,10 @@ class CarritoController extends AbstractController
 
 
     #[Route('/carrito/agregar/{id}', name: 'app_carrito_agregar')]
-    public function agregar(int $id, Request $request): Response
+    public function agregar(int $id, Request $request, ProductoRepository $productoRepository): Response
     {
         $session = $request->getSession();
-
+    
         // Inicia la sesión si no está iniciada
         if (!$session->isStarted()) {
             $session->start();
@@ -52,16 +51,30 @@ class CarritoController extends AbstractController
         // Obtén el carrito de la sesión
         $carrito = $session->get('carrito', []);
     
-        // Si el producto ya está en el carrito, incrementa la cantidad
-        if (isset($carrito[$id])) {
-            $carrito[$id]++;
-        } else {
-            // Si el producto no está en el carrito, añádelo
-            $carrito[$id] = 1;
+        $producto = $productoRepository->find($id);
+    
+        if (!$producto) {
+            throw $this->createNotFoundException('El producto no existe');
         }
     
-        // Guarda el carrito en la sesión
-        $request->getSession()->set('carrito', $carrito);
+        // Check if there is enough stock
+        if ($producto->getStock() <= (isset($carrito[$id]) ? $carrito[$id] : 0)) {
+            return $this->render('carrito/index.html.twig', [
+                'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
+                'productos' => [],
+                'total' => 0,
+            ]);        } else {
+            // Si el producto ya está en el carrito, incrementa la cantidad
+            if (isset($carrito[$id])) {
+                $carrito[$id]++;
+            } else {
+                // Si el producto no está en el carrito, añádelo
+                $carrito[$id] = 1;
+            }
+    
+            // Guarda el carrito en la sesión
+            $request->getSession()->set('carrito', $carrito);
+        }
     
         return $this->redirectToRoute('app_carrito');
     }
@@ -99,16 +112,31 @@ class CarritoController extends AbstractController
     }
 
     #[Route('/carrito/aumentar/{id}', name: 'app_carrito_aumentar')]
-    public function aumentar(int $id, SessionInterface $session): Response
+    public function aumentar(int $id, SessionInterface $session, ProductoRepository $productoRepository): Response
     {
         $carrito = $session->get('carrito', []);
     
         if (!array_key_exists($id, $carrito)) {
             $this->addFlash('error', 'El producto no está en el carrito.');
         } else {
-            $carrito[$id]++;
+            $producto = $productoRepository->find($id);
     
-            $session->set('carrito', $carrito);
+            if (!$producto) {
+                throw $this->createNotFoundException('El producto no existe');
+            }
+    
+            // Revisa si hay stock suficiente
+            if ($producto->getStock() <= $carrito[$id]) {
+                return $this->render('carrito/index.html.twig', [
+                    'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
+                    'productos' => [],
+                    'total' => 0,
+                ]);
+            } else {
+                $carrito[$id]++;
+    
+                $session->set('carrito', $carrito);
+            }
         }
     
         return $this->redirectToRoute('app_carrito');

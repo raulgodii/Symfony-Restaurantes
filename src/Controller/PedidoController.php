@@ -85,7 +85,13 @@ class PedidoController extends AbstractController
             if (!$producto) {
                 throw $this->createNotFoundException('El producto no existe');
             }
-    
+
+            if ($producto->getStock() < $cantidad) {
+                throw new \Exception('No hay suficiente stock para el producto: ' . $producto->getNombre());
+            }
+            $producto->setStock($producto->getStock() - $cantidad);
+            $entityManager->persist($producto);
+
             $pedido = new PedidoProducto();
             $pedido->setPedido($pedidoRestaurante);
             $pedido->setProducto($producto);
