@@ -6,6 +6,7 @@ use App\Entity\Restaurante;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RestauranteType extends AbstractType
 {
@@ -15,7 +16,14 @@ class RestauranteType extends AbstractType
             ->add('nombre')
             ->add('email')
             ->add('password')
-            ->add('roles')
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
             ->add('CP')
             ->add('Pais')
             ->add('Direccion')
