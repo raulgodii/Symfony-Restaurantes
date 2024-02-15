@@ -57,11 +57,24 @@
 											<i class="fa fa-pinterest-p"></i>
 										</a>
 									</div>
-									<div class="header__top__right__auth">
-										<a href="{{ path('app_login') }}">
-											<i class="fa fa-user"></i>
-											Iniciar Sesión</a>
+									{% if app.user %}
+									<div class="header__top__right__social">
+										<a>
+											{{ app.user.userIdentifier }} 
+										</a>
 									</div>
+										<div class="header__top__right__auth">
+											<a href="{{ path('app_logout') }}">
+												<i class="fa fa-user"></i>
+												Cerrar sesión</a>
+										</div>
+									{% else %}
+										<div class="header__top__right__auth">
+											<a href="{{ path('app_login') }}">
+												<i class="fa fa-user"></i>
+												Iniciar Sesión</a>
+										</div>
+									{% endif %}
 								</div>
 							</div>
 						</div>
@@ -99,12 +112,6 @@
 						<div class="col-lg-3">
 							<div class="header__cart">
 								<ul>
-									<li>
-										<a href="{{ path('home') }}">
-											<i class="fa fa-heart"></i>
-											<span>1</span>
-										</a>
-									</li>
 									<li>
 										<a href="{{ path('home') }}">
 											<i class="fa fa-shopping-bag"></i>
