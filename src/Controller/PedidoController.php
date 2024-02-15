@@ -86,7 +86,7 @@ class PedidoController extends AbstractController
             $pedidosConProductos[] = $pedidoArray;
         }
     
-        return $this->render('pedido/index.html', [
+        return $this->render('pedido/manage.html', [
             'pedidosConProductos' => $pedidosConProductos,
         ]);
     }
@@ -171,7 +171,7 @@ class PedidoController extends AbstractController
         $entityManager->remove($pedido);
         $entityManager->flush();
     
-        return $this->redirectToRoute('app_pedido_ver');
+        return $this->redirectToRoute('app_pedido_verTodos');
     }
 
     #[Route('/pedido/enviar/{id}', name: 'app_pedido_enviar')]
@@ -186,7 +186,7 @@ class PedidoController extends AbstractController
         $pedido->setEnviado(true);
         $entityManager->flush();
     
-        return $this->redirectToRoute('app_pedido_ver');
+        return $this->redirectToRoute('app_pedido_verTodos');
     }
     
 
