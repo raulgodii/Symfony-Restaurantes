@@ -15,7 +15,6 @@ class RestauranteType extends AbstractType
         $builder
             ->add('nombre')
             ->add('email')
-            ->add('password')
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'User' => 'ROLE_USER',
@@ -27,7 +26,7 @@ class RestauranteType extends AbstractType
             ->add('CP')
             ->add('Pais')
             ->add('Direccion')
-            ->add('isVerified')
+            ->add('Verificado')
         ;
     }
 
