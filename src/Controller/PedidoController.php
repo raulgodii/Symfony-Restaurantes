@@ -59,6 +59,38 @@ class PedidoController extends AbstractController
         ]);
     }
 
+    #[Route('/pedido/verTodos', name: 'app_pedido_verTodos')]
+    public function verTodos(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager): Response
+    {
+        $pedidos = $entityManager->getRepository(PedidoRestaurante::class)->findAll();
+    
+        $pedidosConProductos = [];
+        foreach ($pedidos as $pedido) {
+            $pedidoArray = [];
+            $pedidoArray['pedido'] = $pedido; 
+    
+            $pedidoProductos = $pedido->getPedido();
+            $productosEnPedido = [];
+            foreach ($pedidoProductos as $pedidoProducto) {
+                $producto = $pedidoProducto->getProducto();
+
+                $productoArray = [
+                    'nombre' => $producto->getNombre(),
+                    'precio' => $producto->getPrecio(),
+                    'unidades' => $pedidoProducto->getUnidades(),
+                ];
+                $productosEnPedido[] = $productoArray;
+            }
+    
+            $pedidoArray['productos'] = $productosEnPedido;
+            $pedidosConProductos[] = $pedidoArray;
+        }
+    
+        return $this->render('pedido/index.html', [
+            'pedidosConProductos' => $pedidosConProductos,
+        ]);
+    }
+
 
     #[Route('/pedido/nuevo', name: 'app_pedido_nuevo')]
     public function nuevo(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository, MailerInterface $mailer): Response
