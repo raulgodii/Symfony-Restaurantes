@@ -54,7 +54,7 @@ class PedidoController extends AbstractController
             $pedidosConProductos[] = $pedidoArray;
         }
     
-        return $this->render('pedido/index.html.twig', [
+        return $this->render('pedido/index.html', [
             'pedidosConProductos' => $pedidosConProductos,
         ]);
     }
