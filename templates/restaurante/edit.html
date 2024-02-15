@@ -1,13 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html' %}
 
-{% block title %}Edit Restaurante{% endblock %}
+{% block title %}Editar Restaurante
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Restaurante</h1>
-
-    {{ include('restaurante/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_restaurante_index') }}">back to list</a>
-
-    {{ include('restaurante/_delete_form.html.twig') }}
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>Editar Restaurante</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+	<div class="contact-form spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+                    <a href="#" onclick="window.history.back();" class="primary-btn">Volver</a><br><br>
+					<div class="contact__form__title">
+						<h2>Restaurante - Editar</h2>
+					</div>
+				</div>
+			</div>
+            {{ include('restaurante/_form.html.twig', {'button_label': 'Actualizar'}) }}
+		</div>
+	</div>
 {% endblock %}
