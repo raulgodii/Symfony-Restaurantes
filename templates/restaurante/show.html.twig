@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurante{% endblock %}
+
+{% block body %}
+    <h1>Restaurante</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurante.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ restaurante.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ restaurante.email }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ restaurante.password }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ restaurante.roles ? restaurante.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>CP</th>
+                <td>{{ restaurante.CP }}</td>
+            </tr>
+            <tr>
+                <th>Pais</th>
+                <td>{{ restaurante.Pais }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ restaurante.Direccion }}</td>
+            </tr>
+            <tr>
+                <th>IsVerified</th>
+                <td>{{ restaurante.isVerified ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_restaurante_index') }}">back to list</a>
+
+    <a href="{{ path('app_restaurante_edit', {'id': restaurante.id}) }}">edit</a>
+
+    {{ include('restaurante/_delete_form.html.twig') }}
+{% endblock %}
