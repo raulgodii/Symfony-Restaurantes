@@ -13,6 +13,10 @@ use App\Entity\PedidoRestaurante;
 use App\Repository\ProductoRepository;
 use App\Repository\RestauranteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+
 
 
 
@@ -57,9 +61,13 @@ class PedidoController extends AbstractController
 
 
     #[Route('/pedido/nuevo', name: 'app_pedido_nuevo')]
-    public function nuevo(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository): Response
+    public function nuevo(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository, MailerInterface $mailer): Response
     {
         $productosEnCarrito = $request->getSession()->get('carrito', []);
+        $usuario = $this->getUser();
+        if (!$usuario) {
+            return $this->redirectToRoute('app_login');
+        }
 
         if (empty($productosEnCarrito)) {
             return $this->render('carrito/index.html.twig', [
@@ -104,7 +112,14 @@ class PedidoController extends AbstractController
         }
     
         $entityManager->flush();
-    
+
+        $email = (new Email())
+        ->from(new Address('mailer@mailer.com', 'Tienda Restaurantes'))
+            ->addto($usuario->getEmail())
+            ->subject('Confirmación de pedido')
+            ->text('Detalles del pedido: ' . $pedido->getId());
+        $mailer->send($email);
+
         $request->getSession()->set('carrito', []);
     
         return $this->redirectToRoute('app_pedido_ver');
