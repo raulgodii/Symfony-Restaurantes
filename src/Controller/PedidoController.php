@@ -76,8 +76,9 @@ class PedidoController extends AbstractController
                 'total' => 0,
             ]);
         }
-    
-        $restaurante = $restauranteRepository->findOneBy([]);
+
+        $restauranteID = $usuario->getId();
+        $restaurante = $restauranteRepository->find($restauranteID);
         
         if (!$restaurante) {
             throw $this->createNotFoundException('No se pudo encontrar un restaurante válido.');

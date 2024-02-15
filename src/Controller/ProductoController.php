@@ -24,6 +24,14 @@ class ProductoController extends AbstractController
         ]);
     }
 
+    #[Route('/gestionar', name: 'app_producto_manage', methods: ['GET'])]
+    public function gestionar(ProductoRepository $productoRepository): Response
+    {
+        return $this->render('producto/manage.html', [
+            'productos' => $productoRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_producto_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
