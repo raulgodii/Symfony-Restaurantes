@@ -169,6 +169,7 @@ class PedidoController extends AbstractController
         $email = (new TemplatedEmail())
         ->from(new Address('mailer@mailer.com', 'Tienda Restaurantes'))
         ->addto($usuario->getEmail())
+        ->addto('plopezlozano12@gmail.com') // ESTE SERIA EL MAIL DEL DEPARTAMENTO DE PEDIDOS
         ->subject('Confirmación de pedido')
         ->htmlTemplate('confirmarpedido/confirmation_pedido.html.twig')
         ->context([
@@ -179,7 +180,8 @@ class PedidoController extends AbstractController
             'fechaPedido' => $fechaPedido, 
 
         ]);
-    $mailer->send($email);
+
+        $mailer->send($email);
 
         $request->getSession()->set('carrito', []);
 
