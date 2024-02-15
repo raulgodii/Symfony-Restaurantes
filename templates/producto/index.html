@@ -1,46 +1,223 @@
 {% extends 'base.html' %}
 
-{% block title %}SuperMart - Productos{% endblock %}
+{% block title %}SuperMart - Productos
+{% endblock %}
 
 {% block body %}
-    <h1>Producto index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Peso</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Imagen</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for producto in productos %}
-            <tr>
-                <td>{{ producto.id }}</td>
-                <td>{{ producto.Nombre }}</td>
-                <td>{{ producto.Descripcion }}</td>
-                <td>{{ producto.Peso }}</td>
-                <td>{{ producto.Precio }}</td>
-                <td>{{ producto.Stock }}</td>
-                <td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
-                <td>
-                    <a href="{{ path('app_producto_show', {'id': producto.id}) }}">show</a>
-                    <a href="{{ path('app_producto_edit', {'id': producto.id}) }}">edit</a>
-                    <a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">Agregar al carrito</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>Productos</h2>
+						<div class="breadcrumb__option">
+							<span>Nuestros productos</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
 
-    <a href="{{ path('app_producto_new') }}">Create new</a>
+	<!-- Product Section Begin -->
+	<section class="product spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-5">
+					<div class="sidebar">
+						<div class="sidebar__item">
+							<h4>Categorias</h4>
+							<ul>
+								{% for categoria in app.request.attributes.get('categorias') %}
+									<li>
+										<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="sidebar__item">
+							<div class="latest-product__text">
+								<h4>Recientes</h4>
+								<div class="latest-product__slider owl-carousel">
+									<div class="latest-prdouct__slider__item">
+										{% for producto in productos|slice(5, 5) %}
+											<a href="#" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}">
+												</div>
+												<div class="latest-product__item__text">
+													<h6>{{ producto.Nombre }}</h6>
+													<span>{{ producto.Precio }}€</span>
+												</div>
+											</a>
+										{% else %}
+											<tr>
+												<td colspan="8">no records found</td>
+											</tr>
+										{% endfor %}
+									</div>
+									<div class="latest-prdouct__slider__item">
+										{% for producto in productos|slice(0, 5) %}
+											<a href="#" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}">
+												</div>
+												<div class="latest-product__item__text">
+													<h6>{{ producto.Nombre }}</h6>
+													<span>{{ producto.Precio }}€</span>
+												</div>
+											</a>
+										{% else %}
+											<tr>
+												<td colspan="8">no records found</td>
+											</tr>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-7">
+					<div class="product__discount">
+						<div class="section-title product__discount__title">
+							<h2>En descuento</h2>
+						</div>
+						<div class="row">
+							<div class="product__discount__slider owl-carousel">
+								{% set productosRandom = productos|sort((item1, item2) => random() * 2 - 1)|slice(0, 5) %}
+								{% for producto in productosRandom %}
+									<div class="col-lg-4">
+										<div class="product__discount__item">
+											<div class="product__discount__item__pic set-bg" data-setbg="{{ asset('images/' ~ producto.Imagen) }}">
+												<div class="product__discount__percent">-20%</div>
+												<ul class="product__item__pic__hover">
+													<li>
+														<a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">
+															<i class="fa fa-shopping-cart"></i>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="product__discount__item__text">
+												<span>{{ producto.Stock }}
+													ud.</span>
+												<h5>
+													<a href="{{ path('app_producto_show', {'id': producto.id}) }}">{{ producto.Nombre }}</a>
+												</h5>
+												<div class="product__item__price">{{ producto.Precio }}€
+													<span>{{ producto.Precio * 1.2 }}€</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								{% else %}
+									<tr>
+										<td colspan="8">no records found</td>
+									</tr>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="filter__item">
+						<div class="row">
+							<div class="col-lg-4 col-md-5">
+								<div class="filter__sort">
+									<span>Ordenar por</span>
+									<select>
+										<option value="0">Recientes</option>
+										<option value="0">Precio (menor a mayor)</option>
+										<option value="0">Precio (mayor a menor)</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								<div class="filter__found">
+									<h6>
+										{% set longitudProductos = productos|length %}
+										<span>{{ longitudProductos }}</span>
+										Productos disponibles</h6>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-3">
+								<div class="filter__option">
+									<span class="icon_grid-2x2"></span>
+									<span class="icon_ul"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						{% for producto in productos %}
+							<div class="col-lg-4 col-md-6 col-sm-6">
+								<div class="product__item">
+									<div class="product__item__pic set-bg" data-setbg="{{ asset('images/' ~ producto.Imagen) }}">
+										<ul class="product__item__pic__hover">
+											<li>
+												<a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">
+													<i class="fa fa-shopping-cart"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="product__item__text">
+										<h6>
+											<a href="{{ path('app_producto_show', {'id': producto.id}) }}">{{ producto.Nombre }}</a>
+										</h6>
+										<h5>{{ producto.Precio }}€</h5>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Peso</th>
+				<th>Precio</th>
+				<th>Stock</th>
+				<th>Imagen</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for producto in productos %}
+				<tr>
+					<td>{{ producto.id }}</td>
+					<td>{{ producto.Nombre }}</td>
+					<td>{{ producto.Descripcion }}</td>
+					<td>{{ producto.Peso }}</td>
+					<td>{{ producto.Precio }}</td>
+					<td>{{ producto.Stock }}</td>
+					<td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
+					<td>
+						<a href="{{ path('app_producto_show', {'id': producto.id}) }}">show</a>
+						<a href="{{ path('app_producto_edit', {'id': producto.id}) }}">edit</a>
+						<a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">Agregar al carrito</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_producto_new') }}">Create new</a>
 {% endblock %}
