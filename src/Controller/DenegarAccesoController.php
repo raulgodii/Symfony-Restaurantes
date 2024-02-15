@@ -10,6 +10,6 @@ class DenegarAccesoController extends AbstractController
     #[Route('/denegar_acceso', name: 'access_denied_route')]
     public function index(): Response
     {
-        return $this->render('acceso/denagado.html.twig');
+        return $this->render('acceso/denagado.html');
     }
 }
