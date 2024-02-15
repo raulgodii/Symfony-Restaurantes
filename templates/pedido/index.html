@@ -45,6 +45,7 @@
 									<th>Id</th>
 									<th>Fecha</th>
 									<th>Estado</th>
+									<th>Productos</th>
 									<th>Total</th>
 								</tr>
 							</thead>
@@ -63,13 +64,22 @@
 										<td class="shoping__cart__price">
 											<h5>{{ pedido.pedido.isEnviado() ? 'Enviado' : 'No enviado' }}</h5>
 										</td>
+
+										<td class="shoping__cart__price">
+                                            <ul>
+                                                {% for producto in pedido.productos %}
+                                                    <li style="list-style: none; font-size: small;"><span style="color: green;">{{ producto.unidades }}</span>  {{ producto.nombre }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+
 										{% set total = 0 %}
 										{% for producto in pedido.productos %}
 											{% set total = total + (producto.precio * producto.unidades) %}
 										{% endfor %}
 
 										<td class="shoping__cart__price">
-											<h5>{{ total }}</h5>
+											<h5>{{ total }}€</h5>
 										</td>
 									</tr>
 								{% else %}

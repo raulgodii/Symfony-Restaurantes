@@ -43,8 +43,10 @@
 							<thead>
 								<tr>
 									<th>Id</th>
+									<th>Restaurante</th>
 									<th>Fecha</th>
 									<th>Estado</th>
+                                    <th>Productos</th>
 									<th>Total</th>
 									<th></th>
 									<th></th>
@@ -58,6 +60,10 @@
 											<h5>{{ pedido.pedido.getId() }}</h5>
 										</td>
 
+                                        <td class="shoping__cart__price">
+                                            <h5>{{ pedido.pedido.getRestaurante().getNombre() }}</h5>
+                                        </td>
+
 										<td class="shoping__cart__price">
 											<h5>{{ pedido.pedido.getFecha()|date('d/m/Y') }}</h5>
 										</td>
@@ -65,13 +71,22 @@
 										<td class="shoping__cart__price">
 											<h5>{{ pedido.pedido.isEnviado() ? 'Enviado' : 'No enviado' }}</h5>
 										</td>
+
+										<td class="shoping__cart__price">
+                                            <ul>
+                                                {% for producto in pedido.productos %}
+												<li style="list-style: none; font-size: small;"><span style="color: green;">{{ producto.unidades }}</span>  {{ producto.nombre }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+
 										{% set total = 0 %}
 										{% for producto in pedido.productos %}
 											{% set total = total + (producto.precio * producto.unidades) %}
 										{% endfor %}
 
 										<td class="shoping__cart__price">
-											<h5>{{ total }}</h5>
+											<h5>{{ total }}€</h5>
 										</td>
 
 										<td class="shoping__cart__price">
