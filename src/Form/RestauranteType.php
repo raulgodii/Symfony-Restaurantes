@@ -26,7 +26,7 @@ class RestauranteType extends AbstractType
             ->add('CP')
             ->add('Pais')
             ->add('Direccion')
-            ->add('Verificado')
+            ->add('isVerified', null,['label' => 'Verificado'])
         ;
     }
 
