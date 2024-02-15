@@ -76,7 +76,8 @@ class CarritoController extends AbstractController
             $request->getSession()->set('carrito', $carrito);
         }
     
-        return $this->redirectToRoute('app_carrito');
+        // return $this->redirectToRoute('app_carrito');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     #[Route('/carrito/eliminar/{id}', name: 'app_carrito_eliminar')]
