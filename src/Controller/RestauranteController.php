@@ -17,7 +17,7 @@ class RestauranteController extends AbstractController
     #[Route('/', name: 'app_restaurante_index', methods: ['GET'])]
     public function index(RestauranteRepository $restauranteRepository): Response
     {
-        return $this->render('restaurante/index.html.twig', [
+        return $this->render('restaurante/index.html', [
             'restaurantes' => $restauranteRepository->findAll(),
         ]);
     }
@@ -25,7 +25,7 @@ class RestauranteController extends AbstractController
     #[Route('/{id}', name: 'app_restaurante_show', methods: ['GET'])]
     public function show(Restaurante $restaurante): Response
     {
-        return $this->render('restaurante/show.html.twig', [
+        return $this->render('restaurante/show.html', [
             'restaurante' => $restaurante,
         ]);
     }
@@ -42,7 +42,7 @@ class RestauranteController extends AbstractController
             return $this->redirectToRoute('app_restaurante_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('restaurante/edit.html.twig', [
+        return $this->render('restaurante/edit.html', [
             'restaurante' => $restaurante,
             'form' => $form,
         ]);

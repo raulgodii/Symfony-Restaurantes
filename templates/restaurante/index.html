@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Gestionar productos
+{% block title %}Gestionar restaurantes
 {% endblock %}
 
 {% block body %}
@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
-						<h2>Gestionar Productos</h2>
+						<h2>Gestionar Restaurantes</h2>
 						<div class="breadcrumb__option">
 							<span>Administración</span>
 						</div>
@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="shoping__cart__btns">
-                                    <a href="{{ path('app_producto_new') }}" class="primary-btn cart-btn cart-btn-right">
+                                    <a href="{{ path('app_register') }}" class="primary-btn cart-btn cart-btn-right">
                                         <i class="fa-solid fa-plus"></i>
                                         Crear</a>
                                 </div>
@@ -49,55 +49,53 @@
 						<table>
 							<thead>
 								<tr>
-									<th>Id</th>
-									<th>Nombre</th>
-									<th>Imagen</th>
-									<th>Descripcion</th>
-									<th>Peso</th>
-									<th>Precio</th>
-									<th>Stock</th>
-									<th></th>
-									<th></th>
-									<th></th>
-								</tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>CP</th>
+                                    <th>Pais</th>
+                                    <th>Direccion</th>
+                                    <th>Verificado</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
 							</thead>
 							<tbody>
-								{% for producto in productos %}
-
-									<tr>
+								{% for restaurante in restaurantes %}
 										<td class="shoping__cart__price">
-											<h5>{{ producto.id }}</h5>
+											<h5>{{ restaurante.id }}</h5>
 										</td>
 										<td class="shoping__cart__price">
-											<h5>{{ producto.Nombre }}</h5>
+											<h5>{{ restaurante.nombre }}</h5>
 										</td>
 										<td class="shoping__cart__price">
-											<img width="100px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}">
+											<h5>{{ restaurante.email }}</h5>
 										</td>
 										<td class="shoping__cart__price">
-											<h5>{{ producto.Descripcion }}</h5>
+											{{ restaurante.roles ? restaurante.roles|json_encode : '' }}
+										</td>
+                                        <td class="shoping__cart__price">
+											<h5>{{ restaurante.CP }}</h5>
 										</td>
 										<td class="shoping__cart__price">
-											<h5>{{ producto.Peso }}</h5>
+											<h5>{{ restaurante.Pais }}</h5>
+										</td>
+                                        <td class="shoping__cart__price">
+											<h5>{{ restaurante.Direccion }}</h5>
+										</td>
+                                        <td class="shoping__cart__price">
+											<h5>{{ restaurante.isVerified ? 'Si' : 'No'  }}</h5>
 										</td>
 										<td class="shoping__cart__price">
-											{{ producto.Precio }}
-										</td>
-										<td class="shoping__cart__price">
-											<h5>{{ producto.Stock }}</h5>
-										</td>
-										<td class="shoping__cart__price">
-											<a href="{{ path('app_producto_show', {'id': producto.id}) }}" style="color: grey;">
+											<a href="{{ path('app_restaurante_show', {'id': restaurante.id}) }}" style="color: grey;">
 												<i class="fa-solid fa-eye"></i>
 											</a>
 										</td>
 										<td class="shoping__cart__price">
-											<a href="{{ path('app_producto_edit', {'id': producto.id}) }}" style="color: grey;">
+											<a href="{{ path('app_restaurante_edit', {'id': restaurante.id}) }}" style="color: grey;">
 												<i class="fa-solid fa-pen-to-square"></i>
 											</a>
-										</td>
-										<td class="shoping__cart__price">
-											{{ include('producto/_delete_form.html.twig') }}
 										</td>
 									</tr>
 								{% else %}
