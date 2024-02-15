@@ -1,0 +1,30 @@
+{# templates/confirmarpedido/confirmation_pedido.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de pedido</title>
+</head>
+<body>
+    <h1>¡Gracias por tu pedido!</h1>
+
+    <p>Hola {{ restauranteNombre }},</p>
+
+    <p>Has realizado un pedido con los siguientes productos:</p>
+
+    <ul>
+        {% for pedidoProducto in pedidosProducto %}
+            <li>{{ pedidoProducto.producto.nombre }} - {{ pedidoProducto.unidades }} unidad(es) - Total: {{ pedidoProducto.producto.precio * pedidoProducto.unidades }}€</li>
+        {% endfor %}
+    </ul>
+
+    <p>Total del pedido: {{ totalPedido }}€</p>
+
+    <p>Fecha del pedido: {{ fechaPedido|date('Y-m-d H:i') }}</p>
+
+    <p>El pedido será procesado y enviado a la mayor brevedad posible.</p>
+
+    <p>¡Gracias por comprar con nosotros!</p>
+</body>
+</html>

@@ -16,14 +16,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 
 
 
+#[Route('/pedido')]
 class PedidoController extends AbstractController
 {
 
-    #[Route('/pedido', name: 'app_pedido_ver')]
+    #[Route('/', name: 'app_pedido_ver')]
     public function misPedidos(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager): Response
     {
         $usuario = $this->getUser();
@@ -59,7 +61,7 @@ class PedidoController extends AbstractController
         ]);
     }
 
-    #[Route('/pedido/verTodos', name: 'app_pedido_verTodos')]
+    #[Route('/verTodos', name: 'app_pedido_verTodos')]
     public function verTodos(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager): Response
     {
         $pedidos = $entityManager->getRepository(PedidoRestaurante::class)->findAll();
@@ -92,7 +94,7 @@ class PedidoController extends AbstractController
     }
 
 
-    #[Route('/pedido/nuevo', name: 'app_pedido_nuevo')]
+    #[Route('/nuevo', name: 'app_pedido_nuevo')]
     public function nuevo(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository, MailerInterface $mailer): Response
     {
         $productosEnCarrito = $request->getSession()->get('carrito', []);
@@ -122,7 +124,13 @@ class PedidoController extends AbstractController
         $pedidoRestaurante->setRestaurante($restaurante);
     
         $entityManager->persist($pedidoRestaurante);
-    
+
+        // Crear un array para almacenar los objetos PedidoProducto
+        $pedidosProducto = [];
+
+        // Inicializar el total del pedido
+        $totalPedido = 0;
+
         foreach ($productosEnCarrito as $productoId => $cantidad) {
             $producto = $productoRepository->find($productoId);
     
@@ -142,24 +150,44 @@ class PedidoController extends AbstractController
             $pedido->setUnidades($cantidad);
     
             $entityManager->persist($pedido);
-        }
-    
-        $entityManager->flush();
 
-        $email = (new Email())
+            // Agregar el pedido a la lista de pedidosProducto
+            $pedidosProducto[] = $pedido;
+
+            // Calcular el total del producto y agregarlo al total del pedido
+            $totalProducto = $producto->getPrecio() * $cantidad;
+            $totalPedido += $totalProducto;
+
+        }
+        
+        $entityManager->flush();
+        $fechaPedido = $pedidoRestaurante->getFecha();
+
+        // Obtén el nombre del restaurante directamente de la entidad Restaurante
+        $restauranteNombre = $restaurante->getNombre();
+
+        $email = (new TemplatedEmail())
         ->from(new Address('mailer@mailer.com', 'Tienda Restaurantes'))
-            ->addto($usuario->getEmail())
-            ->subject('Confirmación de pedido')
-            ->text('Detalles del pedido: ' . $pedido->getId());
-        $mailer->send($email);
+        ->addto($usuario->getEmail())
+        ->subject('Confirmación de pedido')
+        ->htmlTemplate('confirmarpedido/confirmation_pedido.html.twig')
+        ->context([
+            'pedido' => $pedido,
+            'pedidosProducto' => $pedidosProducto, 
+            'restauranteNombre' => $restauranteNombre, 
+            'totalPedido' => $totalPedido, 
+            'fechaPedido' => $fechaPedido, 
+
+        ]);
+    $mailer->send($email);
 
         $request->getSession()->set('carrito', []);
-    
+
         return $this->redirectToRoute('app_pedido_ver');
     }
 
 
-    #[Route('/pedido/eliminar/{id}', name: 'app_pedido_eliminar')]
+    #[Route('/eliminar/{id}', name: 'app_pedido_eliminar')]
     public function eliminar(int $id, EntityManagerInterface $entityManager): Response
     {
         $pedido = $entityManager->getRepository(PedidoRestaurante::class)->find($id);
@@ -174,7 +202,7 @@ class PedidoController extends AbstractController
         return $this->redirectToRoute('app_pedido_verTodos');
     }
 
-    #[Route('/pedido/enviar/{id}', name: 'app_pedido_enviar')]
+    #[Route('/enviar/{id}', name: 'app_pedido_enviar')]
     public function enviar(int $id, EntityManagerInterface $entityManager): Response
     {
         $pedido = $entityManager->getRepository(PedidoRestaurante::class)->find($id);
