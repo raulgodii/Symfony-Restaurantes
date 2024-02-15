@@ -58,11 +58,11 @@
 										</a>
 									</div>
 									{% if app.user %}
-									<div class="header__top__right__social">
-										<a>
-											{{ app.user.userIdentifier }} 
-										</a>
-									</div>
+										<div class="header__top__right__social">
+											<a>
+												{{ app.user.userIdentifier }}
+											</a>
+										</div>
 										<div class="header__top__right__auth">
 											<a href="{{ path('app_logout') }}">
 												<i class="fa fa-user"></i>
@@ -94,6 +94,9 @@
 										<a href="{{ path('home') }}">Home</a>
 									</li>
 									<li>
+										<a href="{{ path('app_producto_index') }}">Productos</a>
+									</li>
+									<li>
 										<a href="{{ path('home') }}">Categorias</a>
 										<ul class="header__menu__dropdown">
 											{% for categoria in app.request.attributes.get('categorias') %}
@@ -103,9 +106,24 @@
 											{% endfor %}
 										</ul>
 									</li>
-									<li>
-										<a href="{{ path('app_producto_index') }}">Productos</a>
-									</li>
+									{% if app.user %}
+										{% if is_granted('ROLE_ADMIN') %}
+											<li>
+												<a href="{{ path('home') }}">Administrador</a>
+												<ul class="header__menu__dropdown">
+													<li>
+														<a href="">Gestionar Restaurantes</a>
+													</li>
+													<li>
+														<a href="">Gestionar Productos</a>
+													</li>
+													<li>
+														<a href="">Gestionar Pedidos</a>
+													</li>
+												</ul>
+											</li>
+										{% endif %}
+									{% endif %}
 								</ul>
 							</nav>
 						</div>
