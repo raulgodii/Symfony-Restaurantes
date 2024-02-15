@@ -69,9 +69,6 @@
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
-					<span class="header__top__right__auth">¿No tienes aún una cuenta?
-						<a style="color: #7fad39;" href="{{ path('app_register') }}">Regístrate</a>
-					</span><br><br>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					<button type="submit" class="site-btn">Iniciar Sesión</button>
 				</div>
