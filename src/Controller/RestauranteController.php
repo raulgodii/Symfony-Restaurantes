@@ -22,26 +22,6 @@ class RestauranteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_restaurante_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $restaurante = new Restaurante();
-        $form = $this->createForm(RestauranteType::class, $restaurante);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($restaurante);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_restaurante_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('restaurante/new.html.twig', [
-            'restaurante' => $restaurante,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/{id}', name: 'app_restaurante_show', methods: ['GET'])]
     public function show(Restaurante $restaurante): Response
     {
