@@ -23,6 +23,9 @@ class PedidoController extends AbstractController
     public function misPedidos(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager): Response
     {
         $usuario = $this->getUser();
+        if (!$usuario) {
+            return $this->redirectToRoute('app_login');
+        }
         $pedidos = $usuario->getPedidos();
         
         $pedidosConProductos = [];
