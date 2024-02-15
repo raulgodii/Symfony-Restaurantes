@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar categoria
+{% endblock %}
+
+{% block body %}
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>Editar categoria</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+	<div class="contact-form spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+                    <a href="#" onclick="window.history.back();" class="primary-btn">Volver</a><br><br>
+					<div class="contact__form__title">
+						<h2>Categoria - Editar</h2>
+					</div>
+				</div>
+			</div>
+			{{ include('categoria/_form.html.twig', {'button_label': 'Actualizar'}) }}
+		</div>
+	</div>
+{% endblock %}

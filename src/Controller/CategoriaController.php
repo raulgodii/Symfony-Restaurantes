@@ -36,7 +36,7 @@ class CategoriaController extends AbstractController
             return $this->redirectToRoute('app_categoria_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('categoria/new.html.twig', [
+        return $this->render('categoria/new.html', [
             'categorium' => $categorium,
             'form' => $form,
         ]);
@@ -64,7 +64,7 @@ class CategoriaController extends AbstractController
             return $this->redirectToRoute('app_categoria_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('categoria/edit.html.twig', [
+        return $this->render('categoria/edit.html', [
             'categorium' => $categorium,
             'form' => $form,
         ]);
