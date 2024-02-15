@@ -42,7 +42,11 @@ security:
         - { path: ^/producto/edit, roles: ROLE_ADMIN }
         - { path: ^/producto/new, roles: ROLE_ADMIN }
         - { path: ^/producto/delete, roles: ROLE_ADMIN }
-        
+        - { path: ^/categoria/new, roles: ROLE_ADMIN }
+        - { path: ^/categoria/edit, roles: ROLE_ADMIN }
+        - { path: ^/categoria/delete, roles: ROLE_ADMIN }
+        - { path: ^/register, roles: ROLE_ADMIN }
+        - { path: ^/pedido/eliminar, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
