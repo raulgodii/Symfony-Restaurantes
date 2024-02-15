@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block title %}Categoria
+{% endblock %}
+
+{% block body %}
+
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>{{ categorium.Nombre }}</h2>
+						<div class="breadcrumb__option">
+							<span>{{ categorium.Descripcion }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+
+	<!-- Product Section Begin -->
+	<section class="product spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-5">
+					<div class="sidebar">
+						<div class="sidebar__item">
+							<h4>Categorias</h4>
+							<ul>
+								{% for categoria in app.request.attributes.get('categorias') %}
+									<li>
+										<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="sidebar__item">
+							<div class="latest-product__text">
+								<h4>Recientes</h4>
+								<div class="latest-product__slider owl-carousel">
+									<div class="latest-prdouct__slider__item">
+										{% for producto in productos|slice(5, 5) %}
+											<a href="#" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}">
+												</div>
+												<div class="latest-product__item__text">
+													<h6>{{ producto.Nombre }}</h6>
+													<span>{{ producto.Precio }}€</span>
+												</div>
+											</a>
+										{% else %}
+											<tr>
+												<td colspan="8">no records found</td>
+											</tr>
+										{% endfor %}
+									</div>
+									<div class="latest-prdouct__slider__item">
+										{% for producto in productos|slice(0, 5) %}
+											<a href="#" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}">
+												</div>
+												<div class="latest-product__item__text">
+													<h6>{{ producto.Nombre }}</h6>
+													<span>{{ producto.Precio }}€</span>
+												</div>
+											</a>
+										{% else %}
+											<tr>
+												<td colspan="8">no records found</td>
+											</tr>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-7">
+					<div class="filter__item">
+                        <div class="section-title product__discount__title">
+							<h2>{{ categorium.Nombre }}</h2>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-5">
+								<div class="filter__sort">
+									<span>Ordenar por</span>
+									<select>
+										<option value="0">Recientes</option>
+										<option value="0">Precio (menor a mayor)</option>
+										<option value="0">Precio (mayor a menor)</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								<div class="filter__found">
+									<h6>
+										{% set longitudProductos = productos|length %}
+										<span>{{ longitudProductos }}</span>
+										Productos disponibles</h6>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-3">
+								<div class="filter__option">
+									<span class="icon_grid-2x2"></span>
+									<span class="icon_ul"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						{% for producto in productos %}
+							<div class="col-lg-4 col-md-6 col-sm-6">
+								<div class="product__item">
+									<div class="product__item__pic set-bg" data-setbg="{{ asset('images/' ~ producto.Imagen) }}">
+										<ul class="product__item__pic__hover">
+											<li>
+												<a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">
+													<i class="fa fa-shopping-cart"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="product__item__text">
+										<h6>
+											<a href="{{ path('app_producto_show', {'id': producto.id}) }}">{{ producto.Nombre }}</a>
+										</h6>
+										<h5>{{ producto.Precio }}€</h5>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+		<h1 style="color: #333;">Categoria</h1>
+
+		<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+			<tbody>
+				<tr>
+					<th style="border: 1px solid #ccc; padding: 10px;">Productos</th>
+					<td style="border: 1px solid #ccc; padding: 10px;">
+						<ul>
+							{% for producto in productos %}
+								<li>{{ producto.Nombre }}
+									-
+									{{ producto.Precio }}€</li>
+							{% else %}
+								<li>No hay productos en esta categoría.</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th style="border: 1px solid #ccc; padding: 10px;">Id</th>
+					<td style="border: 1px solid #ccc; padding: 10px;">{{ categorium.id }}</td>
+				</tr>
+				<tr>
+					<th style="border: 1px solid #ccc; padding: 10px;">Nombre</th>
+					<td style="border: 1px solid #ccc; padding: 10px;">{{ categorium.Nombre }}</td>
+				</tr>
+				<tr>
+					<th style="border: 1px solid #ccc; padding: 10px;">Descripcion</th>
+					<td style="border: 1px solid #ccc; padding: 10px;">{{ categorium.Descripcion }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div style="margin-top: 20px;">
+			<a href="{{ path('home') }}" style="text-decoration: none; color: #fff; background-color: #5cb85c; padding: 8px 15px; border-radius: 3px;">Volver al inicio</a>
+			<a href="{{ path('app_categoria_index') }}" style="text-decoration: none; color: #fff; background-color: #5cb85c; padding: 8px 15px; border-radius: 3px;">Gestionar categorias</a>
+		</div>
+
+	</div>
+{% endblock %}
