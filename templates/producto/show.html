@@ -1,46 +1,135 @@
 {% extends 'base.html' %}
 
-{% block title %}Producto{% endblock %}
+{% block title %}Producto
+{% endblock %}
 
 {% block body %}
-    <h1>Producto</h1>
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>{{ producto.Nombre }}</h2>
+						<div class="breadcrumb__option">
+							<span>Detalles</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ producto.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ producto.Nombre }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion</th>
-                <td>{{ producto.Descripcion }}</td>
-            </tr>
-            <tr>
-                <th>Peso</th>
-                <td>{{ producto.Peso }}</td>
-            </tr>
-            <tr>
-                <th>Precio</th>
-                <td>{{ producto.Precio }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ producto.Stock }}</td>
-            </tr>
-            <tr>
-                <th>Imagen</th>
-                <td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
-            </tr>
-        </tbody>
-    </table>
+	<!-- Product Details Section Begin -->
+	<section class="product-details spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="product__details__pic">
+						<div class="product__details__pic__item">
+                            <a href="{{ path('app_producto_index') }}" class="primary-btn">Volver</a>
+							<img class="product__details__pic__item--large" src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="product__details__text">
+						<h3>{{ producto.Nombre }}</h3>
+						<div class="product__details__rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-o"></i>
+							<span>(18 reviews)</span>
+						</div>
+						<div class="product__details__price">{{ producto.Precio }}€</div>
+						<p>{{ producto.Descripcion }}</p>
+						<div class="product__details__quantity">
+							<div class="quantity">
+								<div class="pro-qty">
+									<input type="text" value="1">
+								</div>
+							</div>
+						</div>
+						<a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}" class="primary-btn">Comprar</a>
+						<ul>
+							<li>
+								<b>Disponibilidad</b>
+								<span>{{ producto.Stock }}
+									ud.</span>
+							</li>
+							<li>
+								<b>Envío</b>
+								<span>24/48h
+								</span>
+							</li>
+							<li>
+								<b>Peso</b>
+								<span>{{ producto.Peso }}g</span>
+							</li>
+							<li>
+								<b>Compartir</b>
+								<div class="share">
+									<a>
+										<i class="fa fa-facebook"></i>
+									</a>
+									<a>
+										<i class="fa fa-twitter"></i>
+									</a>
+									<a>
+										<i class="fa fa-instagram"></i>
+									</a>
+									<a>
+										<i class="fa fa-pinterest"></i>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Product Details Section End -->
 
-    <a href="{{ path('app_producto_index') }}">back to list</a>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ producto.id }}</td>
+			</tr>
+			<tr>
+				<th>Nombre</th>
+				<td>{{ producto.Nombre }}</td>
+			</tr>
+			<tr>
+				<th>Descripcion</th>
+				<td>{{ producto.Descripcion }}</td>
+			</tr>
+			<tr>
+				<th>Peso</th>
+				<td>{{ producto.Peso }}</td>
+			</tr>
+			<tr>
+				<th>Precio</th>
+				<td>{{ producto.Precio }}</td>
+			</tr>
+			<tr>
+				<th>Stock</th>
+				<td>{{ producto.Stock }}</td>
+			</tr>
+			<tr>
+				<th>Imagen</th>
+				<td><img width="30px" src="{{ asset('images/' ~ producto.Imagen) }}" alt="{{ producto.Imagen }}"></td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_producto_edit', {'id': producto.id}) }}">edit</a>
+	<a href="{{ path('app_producto_index') }}">back to list</a>
 
-    {{ include('producto/_delete_form.html.twig') }}
+	<a href="{{ path('app_producto_edit', {'id': producto.id}) }}">edit</a>
+
+	{{ include('producto/_delete_form.html.twig') }}
 {% endblock %}
