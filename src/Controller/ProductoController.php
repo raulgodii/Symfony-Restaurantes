@@ -19,7 +19,7 @@ class ProductoController extends AbstractController
     #[Route('/', name: 'app_producto_index', methods: ['GET'])]
     public function index(ProductoRepository $productoRepository): Response
     {
-        return $this->render('producto/index.html.twig', [
+        return $this->render('producto/index.html', [
             'productos' => $productoRepository->findAll(),
         ]);
     }
@@ -57,24 +57,16 @@ class ProductoController extends AbstractController
             return $this->redirectToRoute('app_producto_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('producto/new.html.twig', [
+        return $this->render('producto/new.html', [
             'producto' => $producto,
             'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/todos', name: 'app_producto_todos', methods: ['GET'])]
-    public function todos(ProductoRepository $productoRepository): Response
-    {
-        return $this->render('producto/todos.html.twig', [
-            'productos' => $productoRepository->findAll(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_producto_show', methods: ['GET'])]
     public function show(Producto $producto): Response
     {
-        return $this->render('producto/show.html.twig', [
+        return $this->render('producto/show.html', [
             'producto' => $producto,
         ]);
     }
@@ -110,7 +102,7 @@ class ProductoController extends AbstractController
             return $this->redirectToRoute('app_producto_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('producto/edit.html.twig', [
+        return $this->render('producto/edit.html', [
             'producto' => $producto,
             'form' => $form->createView(),
         ]);
