@@ -134,14 +134,14 @@
 							<div class="header__cart">
 								<ul>
 									<li>
-										<a href="{{ path('home') }}">
+										<a href="{{ path('app_carrito') }}">
 											<i class="fa fa-shopping-bag"></i>
-											<span>3</span>
+											<span>{{ app.request.attributes.get('productos_carrito')|length }}</span>
 										</a>
 									</li>
 								</ul>
 								<div class="header__cart__price">Total:
-									<span>$150.00</span>
+									<span>{{ app.request.attributes.get('total_carrito') }}€</span>
 								</div>
 							</div>
 						</div>
