@@ -32,7 +32,7 @@ class CarritoController extends AbstractController
             }
         }
     
-        return $this->render('carrito/index.html.twig', [
+        return $this->render('carrito/index.html', [
             'productos' => $productos,
             'total' => $total,
         ]);
@@ -59,7 +59,7 @@ class CarritoController extends AbstractController
     
         // Check if there is enough stock
         if ($producto->getStock() <= (isset($carrito[$id]) ? $carrito[$id] : 0)) {
-            return $this->render('carrito/index.html.twig', [
+            return $this->render('carrito/index.html', [
                 'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
                 'productos' => [],
                 'total' => 0,
@@ -127,7 +127,7 @@ class CarritoController extends AbstractController
     
             // Revisa si hay stock suficiente
             if ($producto->getStock() <= $carrito[$id]) {
-                return $this->render('carrito/index.html.twig', [
+                return $this->render('carrito/index.html', [
                     'error' => 'No hay suficiente stock para el producto: ' . $producto->getNombre(),
                     'productos' => [],
                     'total' => 0,
