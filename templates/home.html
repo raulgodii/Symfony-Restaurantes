@@ -125,62 +125,36 @@
 						<h4>Últimos Productos</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="images/limpiavidrios.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Limpiador de vidrios</h6>
-										<span>3.95€</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="images/lavandina.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Lavandina</h6>
-										<span>4.95€</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="images/desengrasante_industrial.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Desengrasante industrial</h6>
-										<span>8.95€</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(0, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
+
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(3, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
+
 							</div>
 						</div>
 					</div>
@@ -190,127 +164,71 @@
 						<h4>Productos Más Vendidos</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(6, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(9, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-						<h4>Review Products</h4>
+						<h4>Mejor Valorados</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(18, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								{% set productos_limitados = productos|slice(23, 3) %}
+
+								{% for producto in productos_limitados %}
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="{{ asset('images/' ~ producto.Imagen) }}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>{{ producto.Nombre }}</h6>
+											<span>{{ producto.Precio }}€</span>
+										</div>
+									</a>
+								{% endfor %}
 							</div>
 						</div>
 					</div>
