@@ -61,7 +61,7 @@ class PedidoController extends AbstractController
         ]);
     }
 
-    #[Route('/verTodos', name: 'app_pedido_verTodos')]
+    #[Route('/gestionar', name: 'app_pedido_verTodos')]
     public function verTodos(Request $request, ProductoRepository $productoRepository, EntityManagerInterface $entityManager): Response
     {
         $pedidos = $entityManager->getRepository(PedidoRestaurante::class)->findAll();

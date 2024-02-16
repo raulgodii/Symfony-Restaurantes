@@ -41,15 +41,16 @@ security:
         - { path: ^/producto/edit, roles: ROLE_ADMIN }
         - { path: ^/producto/new, roles: ROLE_ADMIN }
         - { path: ^/producto/delete, roles: ROLE_ADMIN }
+        - { path: ^/producto/gestionar, roles: ROLE_ADMIN }
         - { path: ^/categoria/new, roles: ROLE_ADMIN }
         - { path: ^/categoria/edit, roles: ROLE_ADMIN }
         - { path: ^/categoria/delete, roles: ROLE_ADMIN }
         - { path: ^/categoria/gestionar, roles: ROLE_ADMIN }
-        - { path: ^/register, roles: ROLE_ADMIN }
-        - { path: ^/pedido/verTodos, roles: ROLE_ADMIN }
+        - { path: ^/pedido/gestionar, roles: ROLE_ADMIN }
         - { path: ^/pedido/eliminar, roles: ROLE_ADMIN }
         - { path: ^/pedido/enviar, roles: ROLE_ADMIN }
         - { path: ^/restaurante, roles: ROLE_ADMIN }
+        - { path: ^/register, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
