@@ -104,7 +104,7 @@ class PedidoController extends AbstractController
         }
 
         if (empty($productosEnCarrito)) {
-            return $this->render('carrito/index.html.twig', [
+            return $this->render('carrito/index.html', [
                 'error' => 'No puedes completar un pedido sin productos en el carrito.',
                 'productos' => [],
                 'total' => 0,
