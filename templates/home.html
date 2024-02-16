@@ -40,41 +40,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="categories__slider owl-carousel">
-					<div class="col-lg-3">
-						<div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-							<h5>
-								<a href="#">Fresh Fruit</a>
-							</h5>
+					{% for producto in productos %}
+						<div class="col-lg-3">
+							<div class="categories__item set-bg" data-setbg="{{ asset('images/' ~ producto.Imagen) }}">
+								<h5>
+									<a href="{{ path('app_producto_show', {'id': producto.id}) }}">{{ producto.Nombre }}</a>
+								</h5>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-							<h5>
-								<a href="#">Dried Fruit</a>
-							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-							<h5>
-								<a href="#">Vegetables</a>
-							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-							<h5>
-								<a href="#">drink fruits</a>
-							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-							<h5>
-								<a href="#">drink fruits</a>
-							</h5>
-						</div>
-					</div>
+					{% else %}
+						<p>No se encontraron productos.</p>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -90,253 +66,52 @@
 						<h2>Productos</h2>
 					</div>
 					<div class="featured__controls">
-
 						<ul class="header__menu__dropdown">
-							<li class="active" data-filter="*">All</li>
+							<li class="active" data-filter="*" style="color: black;">All</li>
 							{% for categoria in app.request.attributes.get('categorias') %}
 								<li>
-									<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}">{{ categoria.nombre }}</a>
+									<a href="{{ path('app_categoria_show', { 'id': categoria.id }) }}" style="color: #7fad39;">{{ categoria.nombre }}</a>
 								</li>
 							{% endfor %}
 						</ul>
 					</div>
 				</div>
 			</div>
+
 			<div class="row featured__filter">
-				<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-							<ul class="featured__item__pic__hover">
-								<li>
-									<a href="#">
-										<i class="fa fa-heart"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-retweet"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    		{% for producto in productos %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+            <div class="product__item">
+                <div class="product__item__pic set-bg" data-setbg="{{ asset('images/' ~ producto.Imagen) }}">
+                    <ul class="product__item__pic__hover">
+                        <li>
+                            <a href="{{ path('app_carrito_agregar', {'id': producto.id}) }}">
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="product__item__text">
+                    <h6>
+                        <a href="{{ path('app_producto_show', {'id': producto.id}) }}">{{ producto.Nombre }}</a>
+                    </h6>
+                    <h5>{{ producto.Precio }}€</h5>
+                </div>
+            </div>
+        </div>
+
+        {# Agregar un salto de línea después de cada cuarto producto #}
+        {% if loop.index % 4 == 0 %}
+            </div>
+            <div class="row featured__filter">
+        {% endif %}
+    {% else %}
+        <tr>
+            <td colspan="8">No se encontraron registros</td>
+        </tr>
+    {% endfor %}
+</div>
+
 	</section>
 	<!-- Featured Section End -->
 
