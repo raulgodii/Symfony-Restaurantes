@@ -44,6 +44,7 @@ security:
         - { path: ^/categoria/new, roles: ROLE_ADMIN }
         - { path: ^/categoria/edit, roles: ROLE_ADMIN }
         - { path: ^/categoria/delete, roles: ROLE_ADMIN }
+        - { path: ^/categoria/gestionar, roles: ROLE_ADMIN }
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/pedido/verTodos, roles: ROLE_ADMIN }
         - { path: ^/pedido/eliminar, roles: ROLE_ADMIN }

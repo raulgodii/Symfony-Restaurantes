@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/categoria')]
 class CategoriaController extends AbstractController
 {
-    #[Route('/', name: 'app_categoria_index', methods: ['GET'])]
+    #[Route('/gestionar', name: 'app_categoria_index', methods: ['GET'])]
     public function index(CategoriaRepository $categoriaRepository): Response
     {
         return $this->render('categoria/index.html', [
