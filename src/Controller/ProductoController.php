@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\PedidoProducto;
 use App\Entity\Producto;
 use App\Form\ProductoType;
 use App\Repository\ProductoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Repositories\PedidoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Filesystem\Filesystem;
+use App\Entity\PedidoRestaurante;
+
 
 #[Route('/producto')]
 class ProductoController extends AbstractController
@@ -120,6 +124,13 @@ class ProductoController extends AbstractController
     public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager, Filesystem $filesystem): Response
     {
         if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
+
+            // Verificar si el producto tiene pedidos asociados
+            $pedidos = $entityManager->getRepository(PedidoProducto::class)->findBy(['Producto' => $producto->getId()]);
+            if (count($pedidos) > 0) {
+                $this->addFlash('error', 'No puedes eliminar un producto que tiene pedidos asociados.');
+                return $this->redirectToRoute('app_producto_manage', [], Response::HTTP_SEE_OTHER);
+            }
             // Obtener el nombre del archivo de imagen asociado al producto
             $imagenProducto = $producto->getImagen();
 
@@ -130,6 +141,8 @@ class ProductoController extends AbstractController
                     $filesystem->remove($rutaImagen);
                 }
             }
+
+
 
             $entityManager->remove($producto);
             $entityManager->flush();
