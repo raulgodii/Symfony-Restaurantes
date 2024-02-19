@@ -21,7 +21,11 @@
 		</div>
 	</section>
 	<!-- Breadcrumb Section End -->
-
+	{% if error is defined %}
+		<div class="alert alert-danger" role="alert">
+			{{ error }}
+		</div>
+	{% endif %}
 	<!-- Shoping Cart Section Begin -->
 	<section class="shoping-cart spad">
 		<div class="container">

@@ -130,15 +130,17 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_producto_delete', methods: ['POST'])]
-    public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager, Filesystem $filesystem): Response
+    public function delete(Request $request, Producto $producto, EntityManagerInterface $entityManager, Filesystem $filesystem, ProductoRepository $productoRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
 
             // Verificar si el producto tiene pedidos asociados
             $pedidos = $entityManager->getRepository(PedidoProducto::class)->findBy(['Producto' => $producto->getId()]);
             if (count($pedidos) > 0) {
-                $this->addFlash('error', 'No puedes eliminar un producto que tiene pedidos asociados.');
-                return $this->redirectToRoute('app_producto_manage', [], Response::HTTP_SEE_OTHER);
+                return $this->render('producto/manage.html', [
+                    'error' => 'El producto no se puede eliminar porque tiene pedidos asociados.',
+                    'productos' => $productoRepository->findAll(),
+                ]);
             }
             // Obtener el nombre del archivo de imagen asociado al producto
             $imagenProducto = $producto->getImagen();

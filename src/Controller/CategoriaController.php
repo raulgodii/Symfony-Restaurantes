@@ -71,13 +71,21 @@ class CategoriaController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_categoria_delete', methods: ['POST'])]
-    public function delete(Request $request, Categoria $categorium, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Categoria $categorium, EntityManagerInterface $entityManager,CategoriaRepository $categoriaRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$categorium->getId(), $request->request->get('_token'))) {
+            // Verificar si la categoría tiene productos
+            if (count($categorium->getProductos()) > 0) {
+                return $this->render('categoria/index.html', [
+                    'error' => 'No se puede eliminar la categoría porque tiene productos asociados',
+                    'categorias' => $categoriaRepository->findAll(),
+                ]);
+            }
+    
             $entityManager->remove($categorium);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('app_categoria_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -49,13 +49,21 @@ class RestauranteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_restaurante_delete', methods: ['POST'])]
-    public function delete(Request $request, Restaurante $restaurante, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Restaurante $restaurante, EntityManagerInterface $entityManager, RestauranteRepository $restauranteRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$restaurante->getId(), $request->request->get('_token'))) {
+            // Verificar si el restaurante tiene pedidos
+            if (count($restaurante->getPedidos()) > 0) {
+                return $this->render('restaurante/index.html', [
+                    'error' => 'No se puede eliminar el restaurante porque tiene pedidos asociados',
+                    'restaurantes' => $restauranteRepository->findAll(),
+                ]);
+            }
+    
             $entityManager->remove($restaurante);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('app_restaurante_index', [], Response::HTTP_SEE_OTHER);
     }
 }
