@@ -23,8 +23,17 @@ class ProductoController extends AbstractController
     #[Route('/', name: 'app_producto_index', methods: ['GET'])]
     public function index(ProductoRepository $productoRepository): Response
     {
+        $productos = $productoRepository->findAll();
+    
+        $productosConStock = [];
+        foreach ($productos as $producto) {
+            if ($producto->getStock() >= 1) {
+                $productosConStock[] = $producto;
+            }
+        }
+        
         return $this->render('producto/index.html', [
-            'productos' => $productoRepository->findAll(),
+            'productos' => $productosConStock,
         ]);
     }
 
