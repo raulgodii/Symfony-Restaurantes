@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    {# Si el producto ya existe y tiene una imagen, mostrarla #}
+    {% if form.vars.value.id and form.vars.value.Imagen %}
+        <img src="{{ asset('uploads/' ~ form.vars.value.Imagen) }}" alt="Imagen del producto">
+    {% endif %}
+
+    <button class="site-btn">{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

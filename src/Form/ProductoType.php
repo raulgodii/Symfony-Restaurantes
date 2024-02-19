@@ -23,7 +23,7 @@ class ProductoType extends AbstractType
             ->add('Imagen', FileType::class, [
                 'label' => 'Imagen del producto',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
             ])
             ->add('Categoria', EntityType::class, [
                 'class' => Categoria::class,

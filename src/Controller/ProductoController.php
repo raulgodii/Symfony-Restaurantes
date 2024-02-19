@@ -97,32 +97,32 @@ class ProductoController extends AbstractController
     {
         $form = $this->createForm(ProductoType::class, $producto);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            // Subir archivo de imagen
             $imagenArchivo = $form->get('Imagen')->getData();
-
+    
             if ($imagenArchivo) {
                 $nombreArchivo = uniqid() . '.' . $imagenArchivo->guessExtension();
-
+    
                 try {
                     $imagenArchivo->move(
                         $this->getParameter('kernel.project_dir') . '/public/images',
                         $nombreArchivo
                     );
                 } catch (FileException $e) {
-                    // Manejar la excepción si hay un problema al mover el archivo
+
                 }
-
-                // Actualizar el nombre de la imagen en el producto
+    
                 $producto->setImagen($nombreArchivo);
+            } else {
+                $producto->setImagen($producto->getImagen());
             }
-
+    
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_producto_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('producto/edit.html', [
             'producto' => $producto,
             'form' => $form->createView(),

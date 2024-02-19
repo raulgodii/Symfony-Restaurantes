@@ -13,9 +13,16 @@ class LandingPageController extends AbstractController
     public function index(ProductoRepository $productoRepository): Response
     {
         $productos = $productoRepository->findAll();
-
+    
+        $productosConStock = [];
+        foreach ($productos as $producto) {
+            if ($producto->getStock() >= 1) {
+                $productosConStock[] = $producto;
+            }
+        }
+        
         return $this->render('home.html', [
-            'productos' => $productos,
+            'productos' => $productosConStock,
         ]);
     }
 }
